@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Web Page</title>
+    <link rel="stylesheet" href="/main.css">
+    <!-- <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three/examples/jsm/"
+        }
+      }
+      </script> -->
+</head>
+<body>
+    <div id="root-window">
+        <div id="render-target"></div>       
+    </div>
+    <!-- <script type="module">
+        import { createScene } from '/src/scene.js';
+
+        window.onload = () => {
+            window.scene = createScene();
+            document.addEventListener('mousedown', window.scene.onMouseDown, false);
+            document.addEventListener('mousemove', window.scene.onMouseMove, false);
+            document.addEventListener('mouseup', window.scene.onMouseUp, false);
+            window.scene.start();
+        };
+    </script> -->
+    <script type="module" src="/src/main.js"></script>
+    <!-- <script type="module">
+      import { createScene } from '/src/scene.js';
+      window.onload = () => {
+            window.scene = createScene();
+            document.addEventListener('mousedown', window.scene.onMouseDown, false);
+            document.addEventListener('mousemove', window.scene.onMouseMove, false);
+            document.addEventListener('mouseup', window.scene.onMouseUp, false);
+            window.scene.start();
+        };
+    </script> -->
+
+</body>
+</html>
