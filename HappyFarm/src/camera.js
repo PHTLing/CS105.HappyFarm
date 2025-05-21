@@ -80,7 +80,6 @@ export function createCamera(gameWindow) {
                 cameraElevation += (deltaY * ROTATION_SENSITIVITY);
                 cameraElevation = Math.min(MAX_CAMERA_ELEVATION, Math.max(MIN_CAMERA_ELEVATION, cameraElevation));
                 updateCameraPosition();
-            
             }
 
             //Handle the panning of the camera

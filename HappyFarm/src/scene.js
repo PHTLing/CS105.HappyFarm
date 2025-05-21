@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { createCamera } from './camera';
 import { createCar, CarController } from './car';
 
@@ -32,13 +33,26 @@ export async function createScene() {
     const worldGroup = new THREE.Group();
     scene.add(worldGroup);
 
-    //Plane
-    const ground = new THREE.Mesh(
-        new THREE.PlaneGeometry(100, 100),
-        new THREE.MeshBasicMaterial({ color: 0xffff00 })
-      );
-    ground.rotation.x = -0.5*Math.PI;
-    scene.add(ground);
+    // //Plane
+    // const ground = new THREE.Mesh(
+    //     new THREE.PlaneGeometry(100, 100),
+    //     new THREE.MeshBasicMaterial({ color: 0xffff00 })
+    //   );
+    // ground.rotation.x = -0.5*Math.PI;
+    // scene.add(ground);
+
+    
+    // Load map
+    const loader = new GLTFLoader();
+    const mapURL = '/assets/farm.glb';
+
+    loader.load(mapURL, (gltf) => {
+        const map = gltf.scene;
+        map.rotateY(Math.PI / 2); // Xoay mô hình nếu cần
+        scene.add(map);
+    }, undefined, (error) => {
+        console.error('Error loading map:', error);
+    });
       
      // Thêm 1 số object vào cảnh
     const box = new THREE.Mesh(
@@ -52,6 +66,21 @@ export async function createScene() {
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 10, 5);
     scene.add(light);
+
+    //sun light
+    const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+    sunLight.position.set(0, 10, 0);
+    sunLight.castShadow = true;
+    sunLight.shadow.mapSize.width = 1024;
+    sunLight.shadow.mapSize.height = 1024;
+    sunLight.shadow.camera.near = 0.5;
+    sunLight.shadow.camera.far = 50;
+    sunLight.shadow.camera.left = -10;
+    sunLight.shadow.camera.right = 10;
+    sunLight.shadow.camera.top = 10;
+    sunLight.shadow.camera.bottom = -10;
+    scene.add(sunLight);
+
 
     // Input key state
     const keyState = {}
@@ -68,8 +97,9 @@ export async function createScene() {
     }
 
     function updateCamera() {
-        const camHeight = 40;
-        const camDistance = 40;
+        // cameraController.updateCameraPosition();
+        const camHeight = 10;
+        const camDistance = 20;
         const cameraOffset = new THREE.Vector3(0, camHeight, camDistance);
         const desiredPosition = new THREE.Vector3().copy(car.position).add(cameraOffset);
 
@@ -81,14 +111,12 @@ export async function createScene() {
     function drawScene() {
         update();
         updateCamera();
-        cameraController.updateCameraPosition();
         renderer.render(scene, camera);
     }
 
     function start() {
         renderer.setAnimationLoop(drawScene);
     }
-
 
     function stop() {
         renderer.setAnimationLoop(null);
@@ -105,8 +133,6 @@ export async function createScene() {
     function onMouseMove(event) {
         cameraController.onMouseMove(event);
     }
-
-    
     return {
         start,
         stop,

@@ -56,7 +56,7 @@ export class CarController {
 
         // Tốc độ
         this.currentSpeed = 0;
-        this.maxSpeed = 0.3;
+        this.maxSpeed = 0.2;
         this.acceleration = 0.02;
         this.deceleration = 0.002;
         this.brakeDeceleration = 0.05;
