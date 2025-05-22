@@ -12,7 +12,7 @@ export function createCar() {
             (gltf) => {
                 const car = gltf.scene;
                 car.rotateY(Math.PI); // Xoay mô hình nếu cần
-                car.scale.set(0.5, 0.5, 0.5);
+                car.scale.set(1, 1, 1);
                 car.position.y = 0.25;
                 resolve(car); // trả về car
             },
@@ -26,7 +26,7 @@ export function createCar() {
 }
 
 export function updateCar(car, keyState) {
-    const speed = 0.1;
+    const speed = 0.2;
     const rotationSpeed = 0.05;
 
     // Xoay xe
@@ -56,8 +56,8 @@ export class CarController {
 
         // Tốc độ
         this.currentSpeed = 0;
-        this.maxSpeed = 0.2;
-        this.acceleration = 0.02;
+        this.maxSpeed = 0.1;
+        this.acceleration = 0.002;
         this.deceleration = 0.002;
         this.brakeDeceleration = 0.05;
         this.boostMultiplier = 2;

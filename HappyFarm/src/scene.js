@@ -7,12 +7,12 @@ export async function createScene() {
     // Initial scene setup
     const gameWindow = document.getElementById('render-target');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x770077);
+    scene.background = new THREE.Color(0x43c5ff);
 
     // Camera
     const cameraController = createCamera(gameWindow);
     const camera = cameraController.camera;
-    camera.position.set(10, 10, 10);
+    camera.position.set(10, 10, 15);
     camera.lookAt(0, 0, 0);
 
     // Renderer
@@ -63,8 +63,10 @@ export async function createScene() {
     worldGroup.add(box);
 
     // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
     const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 10, 5);
+    light.position.set(10, 10, 10);
     scene.add(light);
 
     //sun light
@@ -97,13 +99,13 @@ export async function createScene() {
     }
 
     function updateCamera() {
-        // cameraController.updateCameraPosition();
-        const camHeight = 10;
-        const camDistance = 20;
-        const cameraOffset = new THREE.Vector3(0, camHeight, camDistance);
-        const desiredPosition = new THREE.Vector3().copy(car.position).add(cameraOffset);
+        cameraController.updateCameraPosition();
+        // const camHeight = 10;
+        // const camDistance = 20;
+        // const cameraOffset = new THREE.Vector3(0, camHeight, camDistance);
+        // const desiredPosition = new THREE.Vector3().copy(car.position).add(cameraOffset);
 
-        camera.position.lerp(desiredPosition, 0.1);
+        // camera.position.lerp(desiredPosition, 0.1);
         camera.lookAt(car.position);
     }
 
