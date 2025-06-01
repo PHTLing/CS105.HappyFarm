@@ -1,0 +1,12 @@
+html,body {
+  height: 100vh;
+  margin: 0;
+}
+
+#root-window {
+    height: 100vh;
+}
+
+#render-target {
+    height: 100vh;
+}

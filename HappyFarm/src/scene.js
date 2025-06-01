@@ -10,12 +10,13 @@ export async function createScene() {
     // Initial scene setup
     const gameWindow = document.getElementById('render-target');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x00000);
+
+    scene.background = new THREE.Color(0x43c5ff);
 
     // Camera
     const cameraController = createCamera(gameWindow);
     const camera = cameraController.camera;
-    camera.position.set(10, 10, 10);
+    camera.position.set(10, 10, 15);
     camera.lookAt(0, 0, 0);
 
     // Renderer
@@ -31,8 +32,10 @@ export async function createScene() {
     const audioLoader = new THREE.AudioLoader();
 
     // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
     const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 10, 5);
+    light.position.set(10, 10, 10);
     scene.add(light);
 
     // Sun light
@@ -139,6 +142,7 @@ export async function createScene() {
     }
 
     function updateCamera() {
+        
         const distance = 10; //8
         const angle = 3 * Math.PI / 4; // 45 degrees
         
@@ -151,6 +155,7 @@ export async function createScene() {
         const desiredPosition = new THREE.Vector3().copy(carGroup.position).add(offset);
         camera.position.lerp(desiredPosition, 0.1);
         camera.lookAt(carGroup.position);
+
     }
 
     function drawScene() {
